@@ -819,8 +819,15 @@ function importFromClipboard(){
 }
 
 // ═══════════════════════════════════════════════════════
-// PWA
+// PWA SERVICE WORKER REGISTRATION
 // ═══════════════════════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered successfully!', reg))
+      .catch(err => console.error('Service Worker registration failed:', err));
+  });
+}
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;render()});
 function installPWA(){if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.then(r=>{if(r.outcome==='accepted'){deferredInstall=null;toast('✅ אפליקציה הותקנה!')}})}}
 
