@@ -1077,7 +1077,7 @@ function pShp(c){
           ${[...new Set([...SHOP_DB[browseCat],...Object.entries(S.shop.customCats||{}).filter(([n,c])=>c===browseCat).map(([n])=>n)])].map(item=>{
             const existing=S.shop.items.find(i=>i.nm===item&&i.cat===browseCat&&!i.bought);
             const qty=existing?existing.qty||1:0;
-            return`<button onclick="tapItem('${item.replace(/'/g,"\\'")}','${browseCat.replace(/'/g,"\\'")}')" style="display:flex;justify-content:space-between;align-items:center;font-size:14px;background:${qty>0?'rgba(255,215,0,0.1)':'var(--bg3)'};border:1px solid ${qty>0?'var(--gold)':'var(--border)'};border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;text-align:right">
+            return`<button onclick="tapItem('${item.replace(/'/g,"\\'")}','${browseCat.replace(/'/g,"\\'")}')" style="display:flex;justify-content:space-between;align-items:center;font-size:16px;background:${qty>0?'rgba(255,215,0,0.1)':'var(--bg3)'};border:1px solid ${qty>0?'var(--gold)':'var(--border)'};border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;text-align:right">
               <span>${item}</span>
               ${qty>0?`<span style="background:var(--gold);color:#000;border-radius:10px;padding:2px 9px;font-size:12px;font-weight:700;min-width:24px">${qty}</span>`:`<span style="color:var(--muted);font-size:16px">+</span>`}
             </button>`;
@@ -1116,7 +1116,7 @@ function pShp(c){
   </div>
 
   ${byCat.map(({cat,items})=>`<div class="card" style="margin-bottom:7px"><div class="st" style="font-size:10px">${cat}</div>${items.map(item=>{const ab=S.players.find(p=>p.id===item.by);return`<div style="display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--border)"><div onclick="togShp(${item.id})" style="width:19px;height:19px;border:2px solid var(--gold);border-radius:4px;cursor:pointer;flex-shrink:0"></div><div style="flex:1;min-width:0">
-        <span style="font-size:14px">${item.nm}${item.rec?'<span class="tag" style="background:var(--bg3);color:var(--muted);margin-right:3px">Recurring</span>':''}</span>
+        <span style="font-size:16px">${item.nm}${item.rec?'<span class="tag" style="background:var(--bg3);color:var(--muted);margin-right:3px">Recurring</span>':''}</span>
         <div style="font-size:9px;color:var(--muted);cursor:pointer" onclick="openChangeCat(${item.id})">${item.cat} ✎</div>
       </div>
     <div style="display:flex;align-items:center;gap:4px">
@@ -1133,7 +1133,7 @@ function pShp(c){
     </div>
     <button onclick="S.shop.items=S.shop.items.filter(i=>i.id!==${item.id});sv();render()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px">🗑</button></div>`}).join('')}</div>`:''}
 
-  ${bgt.length?`<div class="card" style="margin-bottom:9px"><div class="st" style="color:var(--green);font-size:10px">✅ Bought (${bgt.length})</div>${bgt.map(item=>{const bb=S.players.find(p=>p.id===item.boughtBy);return`<div style="display:flex;align-items:center;gap:7px;padding:5px 0;opacity:0.55"><div onclick="togShp(${item.id})" style="width:19px;height:19px;background:var(--green);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">✓</div><span style="flex:1;font-size:13px;text-decoration:line-through;color:var(--muted)">${item.nm}${item.qty>1?' x'+item.qty:''}${bb?' '+bb.avatar:''}</span>${item.price?`<span style="font-size:9px;color:var(--muted)">$${item.price}</span>`:''}<button onclick="S.shop.items=S.shop.items.filter(i=>i.id!==${item.id});sv();render()" style="background:none;border:none;color:#444;cursor:pointer;font-size:10px">🗑</button></div>`}).join('')}</div>`:''}
+  ${bgt.length?`<div class="card" style="margin-bottom:9px"><div class="st" style="color:var(--green);font-size:10px">✅ Bought (${bgt.length})</div>${bgt.map(item=>{const bb=S.players.find(p=>p.id===item.boughtBy);return`<div style="display:flex;align-items:center;gap:7px;padding:5px 0;opacity:0.55"><div onclick="togShp(${item.id})" style="width:19px;height:19px;background:var(--green);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">✓</div><span style="flex:1;font-size:15px;text-decoration:line-through;color:var(--muted)">${item.nm}${item.qty>1?' x'+item.qty:''}${bb?' '+bb.avatar:''}</span>${item.price?`<span style="font-size:9px;color:var(--muted)">$${item.price}</span>`:''}<button onclick="S.shop.items=S.shop.items.filter(i=>i.id!==${item.id});sv();render()" style="background:none;border:none;color:#444;cursor:pointer;font-size:10px">🗑</button></div>`}).join('')}</div>`:''}
   ${S.shop.items.length?`<button class="btn-gold" style="width:100%;font-size:13px;padding:11px" onclick="doneShp()">🎉 Trip Complete! (+15)</button>`:''}
   ${!S.shop.items.length?'<div style="text-align:center;padding:36px 0;color:var(--muted)"><div style="font-size:46px">🛒</div><p style="margin-top:9px;font-size:13px">List is empty</p></div>':''}
   </div>`;
